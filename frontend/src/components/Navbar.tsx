@@ -1,8 +1,10 @@
 import { Link, useLocation } from "react-router-dom";
 import { FaHome } from "react-icons/fa";
+import { useAuth } from "../context/AuthContext";
 
 const Navbar = () => {
   const location = useLocation();
+  const { user, logout } = useAuth();
 
   // Landing page
   const isLandingPage = location.pathname === "/";
@@ -18,12 +20,29 @@ const Navbar = () => {
         <span style={styles.logo}>City Info Portal</span>
       </div>
 
-      {isLandingPage && (
-        <div style={styles.right}>
-          <Link to="/login" style={styles.link}>Login</Link>
-          <Link to="/register" style={styles.registerBtn}>Register</Link>
-        </div>
-      )}
+      <div style={styles.right}>
+        {user ? (
+          <>
+            {user.role === 'admin' && (
+              <Link to="/blog/new" style={styles.link}>New Post</Link>
+            )}
+            <span style={styles.userInfo}>Welcome, {user.name}</span>
+            <button
+              onClick={logout}
+              style={styles.logoutBtn}
+            >
+              Logout
+            </button>
+          </>
+        ) : (
+          isLandingPage && (
+            <>
+              <Link to="/login" style={styles.link}>Login</Link>
+              <Link to="/register" style={styles.registerBtn}>Register</Link>
+            </>
+          )
+        )}
+      </div>
     </nav>
   );
 };
@@ -62,7 +81,7 @@ const styles = {
     color: "#fff",
     textDecoration: "none",
     fontSize: "14px",
-    transition:"opacity 0.2s",
+    transition: "opacity 0.2s",
   },
   icon: {
     color: "#fff",
@@ -70,13 +89,26 @@ const styles = {
     alignItems: "center",
   },
   registerBtn: {
-  color: "#2563eb",
-  backgroundColor: "#fff",
-  padding: "6px 14px",
-  borderRadius: "5px",
-  textDecoration: "none",
-  fontSize: "14px",
-  fontWeight: 500,
-},
-
+    color: "#2563eb",
+    backgroundColor: "#fff",
+    padding: "6px 14px",
+    borderRadius: "5px",
+    textDecoration: "none",
+    fontSize: "14px",
+    fontWeight: 500,
+  },
+  userInfo: {
+    fontSize: "14px",
+    marginRight: "10px",
+  },
+  logoutBtn: {
+    backgroundColor: "rgba(255, 255, 255, 0.2)",
+    border: "1px solid rgba(255, 255, 255, 0.4)",
+    color: "#fff",
+    padding: "6px 14px",
+    borderRadius: "5px",
+    cursor: "pointer",
+    fontSize: "13px",
+    transition: "background 0.2s",
+  },
 };

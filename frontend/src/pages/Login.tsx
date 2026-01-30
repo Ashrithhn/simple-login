@@ -119,7 +119,7 @@ const Login = () => {
                 Don’t have an account? <Link to="/register">Register</Link>
               </p>
               <p style={styles.link}>
-                <Link to="/forgot-password" style={{ color: '#666' }}>Forgot Password?</Link>
+                <Link to="/forgot-password" style={{ color: '#2563eb', fontWeight: 500 }}>Forgot Password?</Link>
               </p>
             </div>
 

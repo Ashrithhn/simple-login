@@ -2,15 +2,11 @@
  * Home page. Entry point with links to main features.
  */
 
-import { Link } from "react-router-dom";
 import cityImage from "../assets/city.jpg";
-import Navbar from "../components/Navbar";
 
 const Home = () => {
   return (
     <>
-      <Navbar />
-
       <div style={styles.container}>
         <div style={styles.card}>
           <h1 style={styles.heading}>Welcome to City Information Portal</h1>

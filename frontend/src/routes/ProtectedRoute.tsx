@@ -23,12 +23,10 @@ export function ProtectedRoute({ children, adminOnly = false }: { children?: Rea
   return children ? <>{children}</> : <Outlet />;
 }
 
-export function PublicOnlyRoute({ children }: { children?: React.ReactNode }) {
+export function PublicOnlyRoute({ children }: { children: React.ReactNode }) {
   const { user, loading } = useAuth();
 
-  if (loading) {
-    return <div style={{ padding: '2rem' }}>Loading authentication...</div>;
-  }
+  if (loading) return <div>Loading...</div>;
 
   if (user) {
     return <Navigate to="/dashboard" replace />;

@@ -38,3 +38,15 @@ export async function logout(token: string): Promise<void> {
 export async function me(token: string): Promise<User> {
   return fetchApi('/auth/me', { headers: { Authorization: `Bearer ${token}` } });
 }
+
+export async function requestPasswordReset(email: string): Promise<{ message: string; otp: string }> {
+  return fetchApi('/auth/forgot-password', { method: 'POST', body: JSON.stringify({ email }) });
+}
+
+export async function verifyOTP(email: string, otp: string): Promise<{ valid: boolean; message: string }> {
+  return fetchApi('/auth/verify-otp', { method: 'POST', body: JSON.stringify({ email, otp }) });
+}
+
+export async function resetPassword(email: string, otp: string, newPassword: string): Promise<{ message: string }> {
+  return fetchApi('/auth/reset-password', { method: 'POST', body: JSON.stringify({ email, otp, newPassword }) });
+}
