@@ -2,10 +2,22 @@
  * Root React component. Renders the main app layout and routes.
  */
 
-import Routes from './routes';
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import Home from "./pages/Home";
+import Login from "./pages/Login";
+import Register from "./pages/Register";
 
-export default function App() {
+function App() {
   return (
-    <Routes />
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/register" element={<Register />} />
+      </Routes>
+    </BrowserRouter>
   );
 }
+
+export default App;
+
