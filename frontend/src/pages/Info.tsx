@@ -1,10 +1,13 @@
-import { Link } from 'react-router-dom';
+import { Link } from "react-router-dom";
 
 export default function Info() {
   return (
     <div className="container-md" style={{ lineHeight: 1.6 }}>
-      <h1>About City Information</h1>
-      <p>Explore city information, read the blog, and use admin features when logged in.</p>
+      <h1>About CityDrive Portal</h1>
+      <p>
+        Explore city information, traffic patterns, quality‑of‑life scores, and
+        community stories in a colorful, car‑themed experience.
+      </p>
       <h2>Features</h2>
       <ul>
         <li><Link to="/cities">Cities</Link> – Browse cities and details.</li>

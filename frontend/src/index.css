@@ -5,36 +5,72 @@
   box-sizing: border-box;
 }
 
-/* Body Styles */
+/* Body Styles + theme support */
 body {
   margin: 0;
   font-family: "Poppins", sans-serif;
   line-height: 1.6;
-  background-color: #f4f4f4;
-  color: #333;
+  background-color: #020617;
+  color: #e5e7eb;
+}
+
+:root[data-theme="light"] {
+  --bg-page: #f4f4f5;
+  --bg-surface: #ffffff;
+  --bg-surface-soft: #e5f2ff;
+  --text-main: #111827;
+  --text-subtle: #4b5563;
+}
+
+:root[data-theme="dark"] {
+  --bg-page: #020617;
+  --bg-surface: rgba(15, 23, 42, 0.96);
+  --bg-surface-soft: rgba(30, 64, 175, 0.35);
+  --text-main: #e5e7eb;
+  --text-subtle: #9ca3af;
+}
+
+body {
+  background-color: var(--bg-page);
+  color: var(--text-main);
+}
+
+/* Global smooth transitions */
+*,
+*::before,
+*::after {
+  transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease;
 }
 
 /* Container / Layout */
-.container-sm, .container-md, .container-lg, main > div {
-  background-color: #fff;
+.container-sm,
+.container-md,
+.container-lg,
+main > div {
+  background: radial-gradient(circle at top, var(--bg-surface-soft), var(--bg-surface));
   padding: 2rem;
-  border-radius: 8px;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
-  margin: 2rem auto; /* Default margin for containers */
+  border-radius: 18px;
+  box-shadow: 0 20px 40px rgba(15, 23, 42, 0.4);
+  margin: 2.5rem auto; /* Default margin for containers */
 }
 
 .container-sm {
-  max-width: 400px;
+  max-width: 420px;
 }
 
 .container-md {
-  max-width: 720px;
+  max-width: 780px;
 }
 
 /* Headings */
-h1, h2, h3, h4, h5, h6 {
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
   margin-bottom: 1rem;
-  color: #333;
+  color: var(--text-main);
 }
 
 /* Paragraphs */
@@ -44,7 +80,7 @@ p {
 
 /* Links */
 a {
-  color: #007bff;
+  color: #2563eb;
   text-decoration: none;
 }
 a:hover {
@@ -53,8 +89,8 @@ a:hover {
 
 /* Buttons */
 button {
-  background-color: #007bff;
-  color: white;
+  background-color: #2563eb;
+  color: #f9fafb;
   border: none;
   padding: 10px 20px;
   border-radius: 5px;
@@ -126,5 +162,776 @@ nav button {
 
 nav a:last-of-type {
   margin-right: 0; /* Remove right margin for last link */
+}
+
+/* ===== Home animated hero ===== */
+.home-hero {
+  position: relative;
+  min-height: 100vh;
+  padding-top: 60px; /* navbar height */
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: radial-gradient(circle at top, #1e293b, #020617);
+  color: #f9fafb;
+}
+
+.home-hero__bg-image {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0.28;
+  filter: blur(1px);
+  transform: scale(1.02);
+}
+
+.home-hero__overlay {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at top, rgba(59, 130, 246, 0.4), transparent),
+    linear-gradient(to bottom, rgba(15, 23, 42, 0.9), rgba(15, 23, 42, 0.8));
+}
+
+.home-hero__content {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  max-width: 1080px;
+  display: grid;
+  grid-template-columns: minmax(0, 3fr) minmax(0, 4fr);
+  gap: 2.5rem;
+  padding: 2rem;
+}
+
+.home-hero__intro h1 {
+  font-size: 2.3rem;
+  font-weight: 700;
+  margin-bottom: 0.75rem;
+}
+
+.home-hero__intro p {
+  font-size: 0.98rem;
+  max-width: 360px;
+  color: #e5e7eb;
+  margin-bottom: 1.5rem;
+}
+
+.home-hero__actions {
+  display: flex;
+  gap: 0.75rem;
+}
+
+.home-hero__actions button {
+  padding: 0.7rem 1.6rem;
+  border-radius: 999px;
+  border: none;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  box-shadow: 0 12px 30px rgba(15, 23, 42, 0.9);
+}
+
+.home-hero__actions button:first-child {
+  background: linear-gradient(135deg, #2563eb, #4f46e5);
+  color: #fff;
+}
+
+.home-hero__actions .home-hero__secondary {
+  background: transparent;
+  color: #e5e7eb;
+  border: 1px solid rgba(148, 163, 184, 0.8);
+}
+
+.home-hero__actions button:hover {
+  transform: translateY(-1px);
+}
+
+.home-hero__scene {
+  position: relative;
+  border-radius: 18px;
+  padding: 1.2rem 1.4rem;
+  background: linear-gradient(145deg, rgba(15, 23, 42, 0.9), rgba(30, 64, 175, 0.8));
+  box-shadow: 0 18px 40px rgba(15, 23, 42, 0.9);
+  overflow: hidden;
+}
+
+/* Dotted route paths */
+.route-dots {
+  position: absolute;
+  width: 260px;
+  height: 260px;
+  border-radius: 999px;
+  border: 2px dashed rgba(148, 163, 184, 0.5);
+  pointer-events: none;
+}
+
+.route-dots--arc {
+  top: -60px;
+  right: -40px;
+  border-style: dotted;
+  border-color: rgba(96, 165, 250, 0.6);
+  animation: routeGlow 5s linear infinite;
+}
+
+.route-dots--diagonal {
+  bottom: -140px;
+  left: -80px;
+  transform: rotate(18deg);
+  border-color: rgba(251, 191, 36, 0.6);
+  border-style: dashed;
+  animation: routeGlow 7s linear infinite reverse;
+}
+
+/* Simple walking people silhouettes */
+.pedestrian {
+  position: absolute;
+  width: 26px;
+  height: 60px;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+}
+
+.pedestrian__body {
+  position: relative;
+  width: 14px;
+  height: 32px;
+  border-radius: 999px;
+  background: linear-gradient(180deg, #f97316, #b91c1c);
+}
+
+.pedestrian__body::before {
+  content: "";
+  position: absolute;
+  top: -11px;
+  left: 1px;
+  width: 12px;
+  height: 12px;
+  border-radius: 999px;
+  background: #fee2e2;
+}
+
+.pedestrian__body::after {
+  content: "";
+  position: absolute;
+  bottom: -10px;
+  left: -2px;
+  width: 18px;
+  height: 10px;
+  border-radius: 999px;
+  background: rgba(15, 23, 42, 0.9);
+}
+
+.pedestrian--one {
+  right: 40px;
+  top: 70px;
+  animation: walkVertical 5s ease-in-out infinite;
+}
+
+.pedestrian--two {
+  left: 90px;
+  top: 40px;
+  transform: scale(0.85);
+  animation: walkVertical 7s ease-in-out infinite reverse;
+}
+
+.traffic-signal {
+  position: absolute;
+  left: 1.2rem;
+  bottom: 3.5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.traffic-signal__head {
+  width: 40px;
+  padding: 6px 0;
+  border-radius: 12px;
+  background: linear-gradient(to bottom, #020617, #111827);
+  box-shadow: 0 4px 10px rgba(15, 23, 42, 0.9);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+}
+
+.traffic-signal__light {
+  width: 18px;
+  height: 18px;
+  border-radius: 999px;
+  opacity: 0.2;
+}
+
+.traffic-signal__light--red {
+  background: #ef4444;
+  animation: signalRed 6s infinite;
+}
+
+.traffic-signal__light--yellow {
+  background: #facc15;
+  animation: signalYellow 6s infinite;
+}
+
+.traffic-signal__light--green {
+  background: #22c55e;
+  animation: signalGreen 6s infinite;
+}
+
+.traffic-signal__pole {
+  width: 6px;
+  height: 70px;
+  margin-top: 4px;
+  border-radius: 999px;
+  background: linear-gradient(to bottom, #111827, #020617);
+}
+
+.road {
+  position: relative;
+  height: 120px;
+  margin-top: 70px;
+  background: linear-gradient(to bottom, #020617, #020617 40%, #111827);
+  border-radius: 14px;
+  overflow: hidden;
+}
+
+.road__lane {
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background-image: linear-gradient(
+    to right,
+    transparent 0,
+    transparent 20px,
+    rgba(148, 163, 184, 0.8) 20px,
+    rgba(148, 163, 184, 0.8) 40px
+  );
+  background-size: 80px 3px;
+  animation: laneMove 3s linear infinite;
+}
+
+.road__lane--top {
+  top: 36px;
+}
+
+.road__lane--bottom {
+  bottom: 22px;
+}
+
+.car {
+  position: absolute;
+  bottom: 14px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.car--primary {
+  left: -120px;
+  animation: carDrive 7s linear infinite;
+}
+
+.car--secondary {
+  bottom: 60px;
+  left: 100%;
+  transform: scale(0.9);
+  animation: carDriveReverse 9s linear infinite;
+}
+
+.car__body {
+  width: 72px;
+  height: 26px;
+  border-radius: 14px 14px 8px 8px;
+  background: linear-gradient(135deg, #38bdf8, #2563eb);
+  position: relative;
+  box-shadow: 0 6px 14px rgba(15, 23, 42, 0.8);
+}
+
+.car--secondary .car__body {
+  background: linear-gradient(135deg, #f97316, #ea580c);
+}
+
+.car__window {
+  position: absolute;
+  left: 10px;
+  top: 4px;
+  width: 24px;
+  height: 14px;
+  border-radius: 8px 6px 4px 6px;
+  background: linear-gradient(135deg, #e5f4ff, #bae6fd);
+}
+
+.car__window--back {
+  left: 38px;
+  width: 20px;
+}
+
+.car__wheels {
+  display: flex;
+  gap: 18px;
+  margin-top: 4px;
+}
+
+.car__wheels span {
+  width: 14px;
+  height: 14px;
+  border-radius: 999px;
+  background: #020617;
+  border: 2px solid #6b7280;
+  animation: wheelSpin 0.6s linear infinite;
+}
+
+.skyline {
+  position: absolute;
+  inset: 0.5rem 0.5rem auto;
+  display: flex;
+  align-items: flex-end;
+  gap: 6px;
+  opacity: 0.85;
+}
+
+.skyline__building {
+  flex: 1;
+  border-radius: 4px 4px 0 0;
+  background: linear-gradient(to top, rgba(15, 23, 42, 0.9), rgba(30, 64, 175, 0.7));
+  position: relative;
+  overflow: hidden;
+}
+
+.skyline__building--1 {
+  height: 80px;
+}
+
+.skyline__building--2 {
+  height: 110px;
+}
+
+.skyline__building--3 {
+  height: 95px;
+}
+
+.skyline__building--4 {
+  height: 70px;
+}
+
+.skyline__building::before {
+  content: "";
+  position: absolute;
+  inset: 6px;
+  background-image: radial-gradient(circle at 2px 2px, #fde68a 0, #fde68a 1px, transparent 1px);
+  background-size: 10px 10px;
+  opacity: 0.5;
+}
+
+/* ===== Login page with animated traffic signal ===== */
+.login-page {
+  min-height: calc(100vh - 56px);
+  padding: 1.8rem 2rem 2.5rem;
+  display: grid;
+  grid-template-columns: minmax(0, 3fr) minmax(0, 2.8fr);
+  gap: 2rem;
+  background: radial-gradient(circle at top left, #1d4ed8, #0f172a);
+}
+
+.login-page__left {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.login-scene {
+  width: 100%;
+  max-width: 460px;
+  border-radius: 18px;
+  padding: 1.4rem 1.5rem 1.8rem;
+  background: linear-gradient(145deg, rgba(15, 23, 42, 0.9), rgba(37, 99, 235, 0.85));
+  box-shadow: 0 18px 40px rgba(15, 23, 42, 0.9);
+  color: #e5e7eb;
+  position: relative;
+  overflow: hidden;
+}
+
+.login-signal {
+  position: absolute;
+  left: 1.1rem;
+  top: 1.2rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.login-signal__head {
+  width: 38px;
+  padding: 5px 0;
+  border-radius: 12px;
+  background: linear-gradient(to bottom, #020617, #111827);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 5px;
+}
+
+.login-signal__light {
+  width: 16px;
+  height: 16px;
+  border-radius: 999px;
+  opacity: 0.25;
+}
+
+.login-signal__light--red {
+  background: #ef4444;
+  animation: signalRed 6s infinite;
+}
+
+.login-signal__light--yellow {
+  background: #facc15;
+  animation: signalYellow 6s infinite;
+}
+
+.login-signal__light--green {
+  background: #22c55e;
+  animation: signalGreen 6s infinite;
+}
+
+.login-signal__pole {
+  width: 5px;
+  height: 70px;
+  margin-top: 4px;
+  border-radius: 999px;
+  background: linear-gradient(to bottom, #111827, #020617);
+}
+
+.login-road {
+  position: absolute;
+  left: 0.9rem;
+  right: 0.9rem;
+  bottom: 1.4rem;
+  height: 70px;
+  border-radius: 12px;
+  background: linear-gradient(to bottom, #020617 0, #020617 60%, #111827);
+  overflow: hidden;
+}
+
+.login-road__line {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  left: -40px;
+  right: -40px;
+  height: 3px;
+  background-image: linear-gradient(
+    to right,
+    transparent 0,
+    transparent 20px,
+    rgba(148, 163, 184, 0.9) 20px,
+    rgba(148, 163, 184, 0.9) 40px
+  );
+  background-size: 80px 3px;
+  animation: laneMove 3s linear infinite;
+}
+
+.login-car {
+  position: absolute;
+  bottom: 8px;
+  left: -100px;
+  animation: carDrive 7s linear infinite;
+}
+
+.login-car__body {
+  width: 70px;
+  height: 24px;
+  border-radius: 14px 14px 8px 8px;
+  background: linear-gradient(135deg, #38bdf8, #2563eb);
+  position: relative;
+  box-shadow: 0 6px 12px rgba(15, 23, 42, 0.8);
+}
+
+.login-car__window {
+  position: absolute;
+  left: 10px;
+  top: 4px;
+  width: 26px;
+  height: 13px;
+  border-radius: 8px 6px 4px 6px;
+  background: linear-gradient(135deg, #e5f4ff, #bae6fd);
+}
+
+.login-car__wheels {
+  display: flex;
+  gap: 18px;
+  margin-top: 3px;
+}
+
+.login-car__wheels span {
+  width: 13px;
+  height: 13px;
+  border-radius: 999px;
+  background: #020617;
+  border: 2px solid #6b7280;
+  animation: wheelSpin 0.6s linear infinite;
+}
+
+.login-scene__caption {
+  position: absolute;
+  bottom: 4.4rem;
+  right: 1.4rem;
+  max-width: 240px;
+  font-size: 0.8rem;
+  color: #e5e7eb;
+  opacity: 0.9;
+}
+
+.login-page__right {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.login-card {
+  width: 100%;
+  max-width: 380px;
+  background: #ffffff;
+  border-radius: 16px;
+  padding: 1.8rem 1.8rem 1.5rem;
+  box-shadow: 0 14px 40px rgba(15, 23, 42, 0.5);
+}
+
+.login-card__header h2 {
+  font-size: 1.4rem;
+  margin-bottom: 0.25rem;
+  color: #111827;
+}
+
+.login-card__header p {
+  font-size: 0.85rem;
+  color: #6b7280;
+}
+
+.login-card__error {
+  margin-top: 0.75rem;
+  margin-bottom: 0.25rem;
+  font-size: 0.82rem;
+  color: #dc2626;
+  text-align: center;
+}
+
+.login-card__form {
+  margin-top: 0.8rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.login-card__field {
+  display: flex;
+  flex-direction: column;
+}
+
+.login-card__field label {
+  font-size: 0.85rem;
+  font-weight: 600;
+  margin-bottom: 0.25rem;
+}
+
+.login-card__field input {
+  padding: 0.55rem 0.7rem;
+  border-radius: 8px;
+  border: 1px solid #e5e7eb;
+  font-size: 0.9rem;
+}
+
+.login-card__field input:focus {
+  outline: none;
+  border-color: #2563eb;
+  box-shadow: 0 0 0 1px rgba(37, 99, 235, 0.4);
+}
+
+.login-card__password {
+  display: flex;
+  align-items: center;
+  position: relative;
+}
+
+.login-card__password input {
+  width: 100%;
+  padding-right: 64px;
+}
+
+.login-card__show {
+  position: absolute;
+  right: 6px;
+  top: 50%;
+  transform: translateY(-50%);
+  border: none;
+  background: transparent;
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: #2563eb;
+  cursor: pointer;
+}
+
+.login-card__field-error {
+  margin-top: 0.15rem;
+  font-size: 0.78rem;
+  color: #dc2626;
+}
+
+.login-card__submit {
+  margin-top: 0.4rem;
+  padding: 0.65rem 1.2rem;
+  border-radius: 999px;
+  border: none;
+  background: linear-gradient(135deg, #2563eb, #4f46e5);
+  color: #fff;
+  font-size: 0.95rem;
+  font-weight: 600;
+  cursor: pointer;
+  box-shadow: 0 10px 25px rgba(15, 23, 42, 0.5);
+  transition: transform 0.18s ease, box-shadow 0.18s ease;
+}
+
+.login-card__submit--hover:not(:disabled) {
+  transform: translateY(-1px);
+  box-shadow: 0 14px 32px rgba(37, 99, 235, 0.6);
+}
+
+.login-card__submit:disabled {
+  background: #9ca3af;
+  cursor: not-allowed;
+}
+
+.login-card__links {
+  margin-top: 0.8rem;
+  font-size: 0.85rem;
+  text-align: center;
+}
+
+.login-card__links a {
+  color: #2563eb;
+  font-weight: 500;
+}
+
+/* ===== Animations ===== */
+@keyframes signalRed {
+  0%,
+  30% {
+    opacity: 1;
+  }
+  31%,
+  100% {
+    opacity: 0.2;
+  }
+}
+
+@keyframes signalYellow {
+  0%,
+  35%,
+  65%,
+  100% {
+    opacity: 0.2;
+  }
+  36%,
+  50% {
+    opacity: 1;
+  }
+}
+
+@keyframes signalGreen {
+  0%,
+  50% {
+    opacity: 0.2;
+  }
+  51%,
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes laneMove {
+  from {
+    background-position-x: 0;
+  }
+  to {
+    background-position-x: -80px;
+  }
+}
+
+@keyframes routeGlow {
+  0% {
+    box-shadow: 0 0 0 rgba(96, 165, 250, 0.2);
+    opacity: 0.7;
+  }
+  50% {
+    box-shadow: 0 0 18px rgba(96, 165, 250, 0.7);
+    opacity: 1;
+  }
+  100% {
+    box-shadow: 0 0 0 rgba(96, 165, 250, 0.2);
+    opacity: 0.7;
+  }
+}
+
+@keyframes walkVertical {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-6px);
+  }
+}
+
+@keyframes carDrive {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(360px);
+  }
+}
+
+@keyframes carDriveReverse {
+  0% {
+    transform: translateX(0) scale(0.9);
+  }
+  100% {
+    transform: translateX(-360px) scale(0.9);
+  }
+}
+
+@keyframes wheelSpin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Responsive tweaks */
+@media (max-width: 960px) {
+  .home-hero__content {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .home-hero__scene {
+    margin-top: 1.4rem;
+  }
+
+  .login-page {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .login-page__left {
+    order: 2;
+  }
+
+  .login-page__right {
+    order: 1;
+  }
 }
 

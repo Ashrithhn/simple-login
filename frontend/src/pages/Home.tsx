@@ -1,9 +1,8 @@
 /**
- * Home page. Entry point with links to main features.
+ * Home page with animated city traffic scene.
  */
 
 import cityImage from "../assets/city.jpg";
-
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 
@@ -12,104 +11,86 @@ const Home = () => {
   const { user } = useAuth();
 
   return (
-    <>
-      <div style={styles.container}>
-        <div style={styles.card}>
-          <h1 style={styles.heading}>Welcome to City Information Portal</h1>
+    <div className="home-hero">
+      <div className="home-hero__overlay" />
 
-          <p style={styles.subText}>
-            Discover cities, blogs, restaurants, and amazing places
+      <div className="home-hero__content">
+        <div className="home-hero__intro">
+          <h1>Welcome to City Information Portal</h1>
+          <p>
+            Real‑time inspired city insights: traffic, quality of life, and
+            stories from around the world.
           </p>
 
           {!user && (
-            <div style={styles.buttonGroup}>
+            <div className="home-hero__actions">
+              <button onClick={() => navigate("/login")}>Login</button>
               <button
-                style={styles.loginBtn}
-                onClick={() => navigate("/login")}
-                onMouseOver={(e) => (e.currentTarget.style.backgroundColor = "#1d4ed8")}
-                onMouseOut={(e) => (e.currentTarget.style.backgroundColor = "#2563eb")}
-              >
-                Login
-              </button>
-              <button
-                style={styles.registerBtn}
+                className="home-hero__secondary"
                 onClick={() => navigate("/register")}
-                onMouseOver={(e) => (e.currentTarget.style.backgroundColor = "#eff6ff")}
-                onMouseOut={(e) => (e.currentTarget.style.backgroundColor = "transparent")}
               >
                 Register
               </button>
             </div>
           )}
         </div>
+
+        <div className="home-hero__scene">
+          <div className="route-dots route-dots--arc" />
+          <div className="route-dots route-dots--diagonal" />
+
+          <div className="pedestrian pedestrian--one">
+            <span className="pedestrian__body" />
+          </div>
+          <div className="pedestrian pedestrian--two">
+            <span className="pedestrian__body" />
+          </div>
+
+          <div className="traffic-signal">
+            <div className="traffic-signal__head">
+              <div className="traffic-signal__light traffic-signal__light--red" />
+              <div className="traffic-signal__light traffic-signal__light--yellow" />
+              <div className="traffic-signal__light traffic-signal__light--green" />
+            </div>
+            <div className="traffic-signal__pole" />
+          </div>
+
+          <div className="road">
+            <div className="road__lane road__lane--top" />
+            <div className="road__lane road__lane--bottom" />
+            <div className="car car--primary">
+              <div className="car__body">
+                <div className="car__window" />
+                <div className="car__window car__window--back" />
+              </div>
+              <div className="car__wheels">
+                <span />
+                <span />
+              </div>
+            </div>
+            <div className="car car--secondary">
+              <div className="car__body">
+                <div className="car__window" />
+              </div>
+              <div className="car__wheels">
+                <span />
+                <span />
+              </div>
+            </div>
+          </div>
+
+          <div className="skyline">
+            <div className="skyline__building skyline__building--1" />
+            <div className="skyline__building skyline__building--2" />
+            <div className="skyline__building skyline__building--3" />
+            <div className="skyline__building skyline__building--4" />
+          </div>
+
+          <img src={cityImage} alt="City" className="home-hero__bg-image" />
+        </div>
       </div>
-    </>
+    </div>
   );
 };
 
 export default Home;
-
-
-const styles = {
-  container: {
-    minHeight: "100vh",
-    backgroundImage: `url(${cityImage})`,
-    backgroundSize: "cover",
-    backgroundPosition: "center",
-    display: "flex",
-    justifyContent: "center",
-    alignItems: "center",
-    paddingTop: "60px", // avoids navbar overlap
-  },
-
-  card: {
-    background: "rgba(255, 255, 255, 0.85)",
-    padding: "40px",
-    borderRadius: "12px",
-    textAlign: "center" as const,
-    maxWidth: "420px",
-    width: "90%",
-    boxShadow: "0 10px 25px rgba(0,0,0,0.2)",
-  },
-
-  heading: {
-    fontSize: "28px",
-    fontWeight: "700",
-    color: "#1f2937",
-    marginBottom: "10px",
-  },
-
-  subText: {
-    fontSize: "15px",
-    color: "#4b5563",
-    marginBottom: "30px",
-  },
-
-  buttonGroup: {
-    display: "flex",
-    justifyContent: "center",
-    gap: "20px", // ✅ SPACE BETWEEN LOGIN & REGISTER
-  },
-
-  loginBtn: {
-    padding: "12px 28px",
-    backgroundColor: "#2563eb",
-    color: "#fff",
-    border: "none",
-    borderRadius: "6px",
-    fontSize: "15px",
-    cursor: "pointer",
-    transition: "background-color 0.2s",
-  },
-
-  registerBtn: {
-    padding: "12px 28px",
-    backgroundColor: "transparent",
-    color: "#2563eb",
-    border: "2px solid #2563eb",
-    borderRadius: "6px",
-    fontSize: "15px",
-    cursor: "pointer",
-    transition: "background-color 0.2s",
-  },
-};
